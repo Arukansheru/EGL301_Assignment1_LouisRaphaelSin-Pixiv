@@ -1,41 +1,73 @@
 //I would use Classes for Artist + Posts, but a bit lazy ^w^
-let artists = [
-  { id: 1, name: "Hoshi_U3" },
-  { id: 2, name: "Sco_ttie" },
-  { id: 3, name: "ATDAN" },
-  { id: 4, name: "gosari" },
-];
+class Artist {
+  static #id = 1;
 
-let posts = [
-  { id: 1, title: "Sparkle_Hanabi", filename: "sparklehanabi.png", tags: ["Honkai Star Rail", "Sparkle"], artistId: 2 },
-  { id: 2, title: "Nya~", filename: "cute.png", tags: ["OC", "Cute"], artistId: 1 }, //OC = Original Character
-  { id: 3, title: "Noshiro", filename: "Noshiro.png", tags: ["Azur Lane", "Noshiro"], artistId: 3 },
-  { id: 4, title: "Columbina", filename: "columbina.png", tags: ["Genshin Impact"], artistId: 4 },
+  constructor(name) {
+    this.id = Artist.#id++;
+    this.name = name;
+  }
+}
+class Post {
+  static #id = 1;
+
+  constructor(title, filename, tags, artistId) {
+    this.id = Post.#id++;
+    this.title = title;
+    this.filename = filename;
+    this.tags = Array.isArray(tags) ? tags : [tags]; //Ensures that tags is an Array at all times.
+    this.artistId = artistId;
+  }
+}
+
+function getArtistIdByName(name) {
+  return artistList.find((a) => a.name === name)?.id;
+}
+
+let artistList = [new Artist("Hoshi_U3"), new Artist("Sco_ttie"), new Artist("ATDAN"), new Artist("gosari")];
+let postList = [
+  new Post("Nya~", "sparklehanabi.png", ["OC", "Cute"], getArtistIdByName("Hoshi_U3")),
+  new Post("Sparkle_Hanabi", "sparklehanabi.png", ["Honkai Star Rail", "Sparkle"], getArtistIdByName("Sco_ttie")),
+  new Post("Noshiro", "noshiro.png", ["Azur Lane", "Noshiro"], getArtistIdByName("ATDAN")),
+  new Post("Columbina", "columbina.png", ["Genshin Impact", "Columbina"], getArtistIdByName("gosari")),
 ];
 
 module.exports = {
-  getPosts() {
-    //Get ALL posts with post's artist
-    return posts.map((post) => {
-      return { ...post, artistName: artists.find((artist) => artist.id == post.artistId).name }; //Spread Operator to combine both the Artist Object and Post Object
-    });
+  //Functions for Artist
+  getArtists: () =>
+    //Get All Artists
+    artistList.map((artist) => {
+      return { ...artist };
+    }),
+  findArtist(param) {
+    // Find Artist using either id or name
+    let artist = artistList.find((artist) => artist.id == param || artist.name == param);
+    return artist ?? `Artist Not Found`;
   },
-  getPost(postID) {
-    //Get 1 post using postID
-    return posts.find((post) => post.id === postID);
+  addArtist: (name) => artistList.push(new Artist(name)), //Adds an Artist
+  deleteArtist(param) {
+    //Delete an Artist
+    artistId = this.findArtist(param).id;
+
+    artistList = artistList.filter((artist) => artist.id !== artistId); // Delete Artist using either id or name
+    postList = postList.filter((post) => post.artistId !== artistId); // Delete any existing post by the Artist
   },
-  getLatestPost: () => posts.find((post) => post.id == posts.length), //Get the latest post using largest ID (This is the only Arrow Function)
-  addPost(title, filename, tags, artistName) {
-    //Add a new post
-    posts.push({
-      id: posts.length + 1,
-      title,
-      filename,
-      tags: Array.isArray(tags) ? tags : [tags], //Ensures that tags is an Array at all times for the updatePostTags() works, as .push() requires an Array. When a single tag string is used in the new post
-      artistId: artists.find((artist) => artist.name == artistName).id, //Finds artist by name to get their ID
-    });
+
+  //Functions for Post
+  getPosts: () =>
+    postList.map((post) => {
+      return { ...post, artistName: artistList.find((artist) => artist.id == post.artistId).name }; // Spread Operator to combine both the Artist Object and Post Object
+    }),
+  findPost(param) {
+    let post = postList.find((post) => post.id == param); // Find Post using ID
+    return post ?? "Post Not Found";
   },
+  addPost: (title, filename, tags, artistName) => postList.push(new Post(title, filename, tags, getArtistIdByName(artistName))), //Add a new post
   updatePostTags(postID, newTag) {
-    this.getPost(postID).tags.push(...(Array.isArray(newTag) ? newTag : [newTag])); //Update 1 Post's List of Tags (Can use either a single variable or Array of variables)
+    let post = postList.find((post) => post.id == postID); //Check if Post Exists
+    if (post) post.tags.push(...(Array.isArray(newTag) ? newTag : [newTag])); // If exist, update it's List of Tags (Can use either a single tag or Array of tags)
+    else console.log("Post Not Found");
+  },
+  deletePost(param) {
+    postList = postList.filter((post) => post.id !== param); // Delete Post using it's Id
   },
 };
