@@ -1,4 +1,3 @@
-//I would use Classes for Artist + Posts, but a bit lazy ^w^
 class Artist {
   static #id = 1;
 
