@@ -25,13 +25,13 @@ There is an existing List of Artists and Posts for you to mess around with.
 
 ## Module Functions
 
-- `getArtists()`
+- **`getArtists()`**
 
   Return Type: Object[]
 
   This function returns an Array of all the Artists.
 
-- `findArtist(param)`
+- **`findArtist(param)`**
 
   Return Type: Object
 
@@ -39,7 +39,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
       param: String or Int,
 
-- `addArtist(name)`
+- **`addArtist(name)`**
 
   Return Type: None
 
@@ -47,7 +47,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
       name: String,
 
-- `deleteArtist(param)`
+- **`deleteArtist(param)`**
 
   Return Type: None
 
@@ -55,13 +55,13 @@ There is an existing List of Artists and Posts for you to mess around with.
 
       param: String or Int
 
-- `getPosts()`
+- **`getPosts()`**
 
   Return Type: Object[]
 
   This function returns an Array of all the Posts, it also includes the Artist's Details.
 
-- `getPost(param)`
+- **`getPost(param)`**
 
   Return Type: Object
 
@@ -69,7 +69,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
       param: String
 
-- `addPost(title, filename, tags, artistName)`
+- **`addPost(title, filename, tags, artistName)`**
 
   Return Type: None
 
@@ -80,7 +80,7 @@ There is an existing List of Artists and Posts for you to mess around with.
       tags: String or String[],
       artistName: String
 
-- `updatePostTags(postID, newTag)`
+- **`updatePostTags(postID, newTag)`**
 
   Return Type: None
 
@@ -91,7 +91,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
   For newTag, you may use either a single tag (one string) or multiple tags (an array of strings)
 
-- `deleteArtist(param)`
+- **`deleteArtist(param)`**
 
   Return Type: None
 
@@ -99,7 +99,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
       param: int
 
-- `getPostsUsingArtistName(name)`
+- **`getPostsUsingArtistName(name)`**
 
   Return Type: Object[]
 
