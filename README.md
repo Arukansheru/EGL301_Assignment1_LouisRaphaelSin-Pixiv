@@ -12,7 +12,7 @@ For some tips in formatting text in readme file, refer to https://docs.github.co
 
 Using Pixiv as a reference, this node module is built around the commonly found features within Pixiv.
 
-You may find the usable functions under **Module Functions**<br>
+You may find the usable functions under **Module Functions**
 You may find a website link under **References**
 
 ## Installation
@@ -72,9 +72,9 @@ There already is an existing List of Artists and Posts you may mess around with.
 
   Uses 4 Parameters when adding a new post
 
-      title: String,<br>
-      filename: String,<br>
-      tags: String or String[],<br>
+      title: String,
+      filename: String,
+      tags: String or String[],
       artistName: String
 
 - `updatePostTags(postID, newTag)`
@@ -83,7 +83,7 @@ There already is an existing List of Artists and Posts you may mess around with.
 
   Uses 2 Parameters when updating a post's tags
 
-      postID: int,<br>
+      postID: int,
       newTag: String or String[]
 
   For newTag, you may use either a single tag (one string) or multiple tags (an array of strings)
