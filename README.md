@@ -17,8 +17,11 @@ You may find a website link under **References**
 
 ## Installation
 
-Just import or require the file into your Node.js project. There is no need to do `npm i`
-There already is an existing List of Artists and Posts you may mess around with.
+Just import or require the file into your Node.js project.<br>
+`const pixiv = require("./LouisSin_Pixiv.js")`<br>
+There is no need to do `npm i`<br>
+
+There is an existing List of Artists and Posts for you to mess around with.
 
 ## Module Functions
 
@@ -96,8 +99,14 @@ There already is an existing List of Artists and Posts you may mess around with.
 
       param: int
 
-# References
+- `getPostsUsingArtistName(name)`
 
-Provide the references that you have used to support your assignment.
+  Return Type: Object[]
+
+  Uses 1 parameter when finding posts from a specific artist
+
+      name: String
+
+# References
 
 (Social Media) Reference Website: https://www.pixiv.net/en/

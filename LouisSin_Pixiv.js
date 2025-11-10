@@ -19,7 +19,7 @@ class Post {
 }
 
 function getArtistIdByName(name) {
-  return artistList.find((a) => a.name === name)?.id;
+  return artistList.find((artist) => artist.name === name)?.id;
 }
 
 let artistList = [new Artist("Hoshi_U3"), new Artist("Sco_ttie"), new Artist("ATDAN"), new Artist("gosari")];
@@ -34,13 +34,13 @@ module.exports = {
   //Functions for Artist
   getArtists: () =>
     //Get All Artists
-    artistList.map((artist) => {
-      return { ...artist };
+    artistList.map((p) => {
+      return { ...p };
     }),
   findArtist(param) {
     // Find Artist using either id or name
     let artist = artistList.find((artist) => artist.id == param || artist.name == param);
-    return artist ?? `Artist Not Found`;
+    return artist ?? `Artist Not Found`; //artist will be undefined if find() does not obtain a result
   },
   addArtist: (name) => artistList.push(new Artist(name)), // Add a new Artist Class to artistList
   deleteArtist(param) {
@@ -68,4 +68,17 @@ module.exports = {
     else console.log("Post Not Found");
   },
   deletePost: (param) => (postList = postList.filter((post) => post.id !== param)), // Delete Post using it's Id
+
+  //Custom Functions
+  getPostsUsingArtistName(name) {
+    let result = {
+      artistName: name,
+      posts: [],
+    };
+
+    postList.forEach((post) => {
+      if (post.artistId == this.findArtist(name).id) result.posts.push({ ...post });
+    });
+    return result;
+  },
 };

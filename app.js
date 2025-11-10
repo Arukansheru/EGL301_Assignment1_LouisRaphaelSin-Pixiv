@@ -14,3 +14,6 @@ pixiv.deletePost(2);
 
 console.log("Get All Posts w/ Artist Name:", pixiv.getPosts());
 console.log("Searching for Post using Parameters:", pixiv.findPost(4));
+
+//Custom Fuction
+console.log(pixiv.getPostsUsingArtistName("Hoshi_U3"));
