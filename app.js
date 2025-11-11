@@ -1,11 +1,11 @@
 const pixiv = require("./LouisSin_Pixiv.js");
 
 //Test Artist Functions
-pixiv.addArtist("Tsumugi");
-pixiv.deleteArtist(3);
+pixiv.addArtist(true);
+pixiv.deleteArtist(10);
 
 console.log("Get All Artists:", pixiv.getArtists());
-console.log("Searching for Artist using Parameters:", pixiv.findArtist("Tsumugi"));
+console.log("Searching for Artist using Parameters:", pixiv.findArtist("Hoshi_U3"));
 
 //Test Post Functions
 pixiv.addPost("Tenshi", "Tenshi.png", "OC", "Hoshi_U3");
