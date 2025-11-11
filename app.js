@@ -1,15 +1,15 @@
 const pixiv = require("./LouisSin_Pixiv.js");
 
 //Test Artist Functions
-pixiv.addArtist(true);
-pixiv.deleteArtist(10);
+pixiv.addArtist("Tsumugi");
+console.log(pixiv.deleteArtist(3));
 
 console.log("Get All Artists:", pixiv.getArtists());
 console.log("Searching for Artist using Parameters:", pixiv.findArtist("Hoshi_U3"));
 
 //Test Post Functions
-pixiv.addPost("Tenshi", "Tenshi.png", "OC", "Hoshi_U3");
-pixiv.updatePostTags(4, ["AI", "Angel"]);
+console.log(pixiv.addPost("Tenshi", "Tenshi.png", "OC", "Hoshi_U3"));
+console.log(pixiv.updatePostTags(4, ["AI", "Angel"]));
 pixiv.deletePost(2);
 
 console.log("Get All Posts w/ Artist Name:", pixiv.getPosts());

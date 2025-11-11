@@ -41,7 +41,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
 - **`addArtist(name)`**
 
-  Return Type: None
+  Return Type: String
 
   Uses 1 parameter when adding a new artist
 
@@ -49,7 +49,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
 - **`deleteArtist(param)`**
 
-  Return Type: None
+  Return Type: String
 
   Uses 1 parameter when deleting an artist. Which can either be the artist name or id
 
@@ -61,7 +61,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
   This function returns an Array of all the Posts, it also includes the Artist's Details.
 
-- **`getPost(param)`**
+- **`findPost(param)`**
 
   Return Type: Object
 
@@ -71,7 +71,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
 - **`addPost(title, filename, tags, artistName)`**
 
-  Return Type: None
+  Return Type: String
 
   Uses 4 Parameters when adding a new post
 
@@ -82,7 +82,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
 - **`updatePostTags(postID, newTag)`**
 
-  Return Type: None
+  Return Type: Object
 
   Uses 2 Parameters when updating a post's tags
 
@@ -91,9 +91,9 @@ There is an existing List of Artists and Posts for you to mess around with.
 
   For newTag, you may use either a single tag (one string) or multiple tags (an array of strings)
 
-- **`deleteArtist(param)`**
+- **`deletePost(param)`**
 
-  Return Type: None
+  Return Type: String
 
   Uses 1 parameter when deleting a post.
 
@@ -101,7 +101,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
 - **`getPostsUsingArtistName(name)`**
 
-  Return Type: Object[]
+  Return Type: Object
 
   Uses 1 parameter when finding posts from a specific artist
 

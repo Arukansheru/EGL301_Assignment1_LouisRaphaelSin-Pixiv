@@ -36,17 +36,20 @@ module.exports = {
 
   findArtist(param) {
     // Find Artist using either id or name
-    let artist = artistList.find((artist) => artist.id == param || artist.name == param);
-    return artist ?? `Artist Not Found`; //artist will be undefined if find() does not obtain a result
+    return artistList.find((artist) => artist.id == param || artist.name == param) ?? `Param: ${param} - Artist Not Found`; //find() returns undefined if it does not obtain a result. Hence, we use ??
   },
-  addArtist: (name) => artistList.push(new Artist(name.toString())), // Add a new Artist Class to artistList
-
+  addArtist: (name) => {
+    artistList.push(new Artist(name.toString())); // Add a new Artist Class to artistList
+    return `Artist Added - ${name}`;
+  },
   deleteArtist(param) {
     //Delete an Artist
     artistId = artistList.find((artist) => artist.id == param);
-    if (!artistId) return console.log("Artist Not Found"); // If Artist is not found, returns error message
+    if (!artistId) return `ID: ${param} - Artist Not Found`; // If ArtistId is not found, returns error message
+
     artistList = artistList.filter((artist) => artist.id !== artistId); // Delete Artist using either id or name
     postList = postList.filter((post) => post.artistId !== artistId); // Delete any existing post by the Artist
+    return `Artist ${param} deleted`;
   },
 
   //Functions for Post
@@ -57,17 +60,26 @@ module.exports = {
     ),
   findPost: (param) => postList.find((post) => post.id == param) ?? "Post Not Found", // Find Post using ID
 
-  addPost: (title, filename, tags, artistName) => postList.push(new Post(title, filename, tags, getArtistIdByName(artistName))), // Add a new Post Class to postList
+  addPost: (title, filename, tags, artistName) => {
+    let artistId = getArtistIdByName(artistName);
+    if (artistId) postList.push(new Post(title, filename, tags, artistId)); // Add a new Post Class to postList
+    else return `Cannot Add Post. Artist Not Found`;
+    return `Post Added for ${artistName}`;
+  },
 
   updatePostTags(postID, newTag) {
     let post = postList.find((post) => post.id == postID); //Check if Post Exists
     if (post) post.tags.push(...(Array.isArray(newTag) ? newTag : [newTag])); // Update it's List of Tags (Can use either a single tag or Array of tags)
     else console.log("Cannot update Tag(s), as Post cannot be found");
+    return { ...post }; // Returns the Update Post Class as an
   },
 
-  deletePost: (param) => (postList = postList.filter((post) => post.id !== param)), // Delete Post using it's Id
+  deletePost: (param) => {
+    postList = postList.filter((post) => post.id !== param); // Delete Post using it's Id
+    return "Deleted Post";
+  },
 
-  //Custom Functions
+  //Custom Function(s)
   getPostsUsingArtistName(name) {
     let result = { artistName: name, posts: [] };
     postList.forEach((post) => {
