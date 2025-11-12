@@ -55,6 +55,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
         param: String or Int
 
+  Note: Deleting an Artist will ALL POSTS by the Artist!
   <br>
 
 - **`getPosts()`**

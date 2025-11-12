@@ -55,9 +55,7 @@ module.exports = {
   //Functions for Post
   getPosts: () =>
     //Get All posts
-    postList.map(
-      (post) => ({ ...post, artistName: artistList.find((artist) => artist.id == post.artistId).name }) // Spread Operator to combine both the Artist Object and Post Object
-    ),
+    postList.map((post) => ({ ...post, artistName: artistList.find((artist) => artist.id == post.artistId).name })), // Spread Operator to combine both the Artist Object and Post Object
   findPost: (param) => postList.find((post) => post.id == param) ?? "Post Not Found", // Find Post using ID
 
   addPost: (title, filename, tags, artistName) => {
