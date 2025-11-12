@@ -44,11 +44,11 @@ module.exports = {
   },
   deleteArtist(param) {
     //Delete an Artist
-    artistId = artistList.find((artist) => artist.id == param);
-    if (!artistId) return `ID: ${param} - Artist Not Found`; // If ArtistId is not found, returns error message
+    artistObj = artistList.find((artist) => artist.id == param || artist.name == param);
+    if (!artistObj) return `ID: ${param} - Artist Not Found`; // If ArtistId is not found, returns error message
 
-    artistList = artistList.filter((artist) => artist.id !== artistId); // Delete Artist using either id or name
-    postList = postList.filter((post) => post.artistId !== artistId); // Delete any existing post by the Artist
+    artistList = artistList.filter((artist) => artist.id !== artistObj.id); // Delete Artist using either id or name
+    postList = postList.filter((post) => post.artistId !== artistObj.id); // Delete any existing post by the Artist
     return `Artist ${param} deleted`;
   },
 
@@ -74,8 +74,8 @@ module.exports = {
     return { ...post }; // Returns the Update Post Class as an
   },
 
-  deletePost: (param) => {
-    postList = postList.filter((post) => post.id !== param); // Delete Post using it's Id
+  deletePost: (postID) => {
+    postList = postList.filter((post) => post.id !== postID); // Delete Post using it's Id
     return "Deleted Post";
   },
 

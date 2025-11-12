@@ -47,13 +47,15 @@ There is an existing List of Artists and Posts for you to mess around with.
 
       name: String,
 
-- **`deleteArtist(param)`**
+- **`deleteArtist(id)`**
 
   Return Type: String
 
   Uses 1 parameter when deleting an artist. Which can either be the artist name or id
 
-      param: String or Int
+        param: String or Int
+
+  <br>
 
 - **`getPosts()`**
 
@@ -91,7 +93,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
   For newTag, you may use either a single tag (one string) or multiple tags (an array of strings)
 
-- **`deletePost(param)`**
+- **`deletePost(postID)`**
 
   Return Type: String
 
