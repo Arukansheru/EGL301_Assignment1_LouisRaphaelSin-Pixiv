@@ -32,30 +32,39 @@ let postList = [
 
 module.exports = {
   //Functions for Artist
-  getArtists: () => artistList.map((p) => ({ ...p })), //Get All Artists
 
-  findArtist(param) {
-    // Find Artist using either id or name
-    return artistList.find((artist) => artist.id == param || artist.name == param) ?? `Param: ${param} - Artist Not Found`; //find() returns undefined if it does not obtain a result. Hence, we use ??
+  //Get All Artists
+  getArtists: () => artistList.map((p) => ({ ...p })),
+
+  //Find Artist using either id or name
+  findArtist: (param) => {
+    let artist = artistList.find((artist) => artist.id == param || artist.name == param);
+
+    if (artist) return artist;
+    else throw new Error(`Param: ${param} - Artist Not Found`);
   },
+
+  //Add Artist using Name
   addArtist: (name) => {
-    artistList.push(new Artist(name.toString())); // Add a new Artist Class to artistList
-    return `Artist Added - ${name}`;
+    artistList.push(new Artist(name.toString())); //Creates a new Artist Class and adds it to artistList
+    return { message: `Artist Added - ${name}` };
   },
+
+  //Delete an Artist - Using either Id or Name
   deleteArtist(param) {
-    //Delete an Artist
     artistObj = artistList.find((artist) => artist.id == param || artist.name == param);
-    if (!artistObj) return `ID: ${param} - Artist Not Found`; // If ArtistId is not found, returns error message
+    if (!artistObj) return { message: `ID: ${param} - Artist Not Found` }; // If ArtistId is not found, returns error message
 
     artistList = artistList.filter((artist) => artist.id !== artistObj.id); // Delete Artist using either id or name
     postList = postList.filter((post) => post.artistId !== artistObj.id); // Delete any existing post by the Artist
-    return `Artist ${param} deleted`;
+    return { message: `Artist ${param} deleted` };
   },
 
   //Functions for Post
-  getPosts: () =>
-    //Get All posts
-    postList.map((post) => ({ ...post, artistName: artistList.find((artist) => artist.id == post.artistId).name })), // Spread Operator to combine both the Artist Object and Post Object
+
+  //Get All posts
+  getPosts: () => postList.map((post) => ({ ...post, artistName: artistList.find((artist) => artist.id == post.artistId).name })), // Spread Operator to combine both the Artist Object and Post Object
+
   findPost: (param) => postList.find((post) => post.id == param) ?? "Post Not Found", // Find Post using ID
 
   addPost: (title, filename, tags, artistName) => {

@@ -29,7 +29,7 @@ There is an existing List of Artists and Posts for you to mess around with.
 
   Uses 1 parameter when searching for an artist. Which can either be the artist name or id
 
-      param: String or Int,
+      { param: String or Int }
 
 - **`addArtist(name)`**
 
@@ -37,7 +37,11 @@ There is an existing List of Artists and Posts for you to mess around with.
 
   Uses 1 parameter when adding a new artist
 
-      name: String,
+      { name: String }
+
+  Expected Return Messages:
+
+      { message: `Artist Added - ${name}` }
 
 - **`deleteArtist(id)`**
 
@@ -45,7 +49,15 @@ There is an existing List of Artists and Posts for you to mess around with.
 
   Uses 1 parameter when deleting an artist. Which can either be the artist name or id
 
-        param: String or Int
+      { param: String or Int }
+
+  Expected Error Message
+
+      { message: `ID: ${param} - Artist Not Found` }
+
+  Expected Error Message
+
+      { message: `Artist ${param} deleted` };
 
   Note: Deleting an Artist will delete ALL POSTS by the Artist!
   <br>
