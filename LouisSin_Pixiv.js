@@ -41,7 +41,7 @@ module.exports = {
     let artist = artistList.find((artist) => artist.id == param || artist.name == param);
 
     if (artist) return artist;
-    else throw new Error(`Param: ${param} - Artist Not Found`);
+    else throw new Error(`Artist Not Found: Cannot find Artist with id or name - ${param}`);
   },
 
   //Add Artist using Name
@@ -53,7 +53,7 @@ module.exports = {
   //Delete an Artist - Using either Id or Name
   deleteArtist(param) {
     artistObj = artistList.find((artist) => artist.id == param || artist.name == param);
-    if (!artistObj) return { message: `ID: ${param} - Artist Not Found` }; // If ArtistId is not found, returns error message
+    if (!artistObj) throw new Error(`Artist Not Found: Cannot delete Artist with id or name - ${param}`); // If ArtistId is not found, returns error message
 
     artistList = artistList.filter((artist) => artist.id !== artistObj.id); // Delete Artist using either id or name
     postList = postList.filter((post) => post.artistId !== artistObj.id); // Delete any existing post by the Artist
@@ -65,32 +65,44 @@ module.exports = {
   //Get All posts
   getPosts: () => postList.map((post) => ({ ...post, artistName: artistList.find((artist) => artist.id == post.artistId).name })), // Spread Operator to combine both the Artist Object and Post Object
 
-  findPost: (param) => postList.find((post) => post.id == param) ?? "Post Not Found", // Find Post using ID
+  //Find Post using ID
+  findPost: (param) => {
+    let post = postList.find((post) => post.id == param);
 
+    if (post) return post;
+    else throw new Error(`Post Not Found: Cannot find Post with id - ${param}`);
+  },
+
+  // Add a new Post
   addPost: (title, filename, tags, artistName) => {
     let artistId = getArtistIdByName(artistName);
     if (artistId) postList.push(new Post(title, filename, tags, artistId)); // Add a new Post Class to postList
-    else return `Cannot Add Post. Artist Not Found`;
-    return `Post Added for ${artistName}`;
+    else throw new Error(`Post Not Found: Cannot find Post of Artist with name - ${artistName}`);
+    return { message: `Post Added for ${artistName}` };
   },
 
+  //Update tags of a post (Can use either a single tag or Array of tags)
   updatePostTags(postID, newTag) {
     let post = postList.find((post) => post.id == postID); //Check if Post Exists
-    if (post) post.tags.push(...(Array.isArray(newTag) ? newTag : [newTag])); // Update it's List of Tags (Can use either a single tag or Array of tags)
-    else console.log("Cannot update Tag(s), as Post cannot be found");
-    return { ...post }; // Returns the Update Post Class as an
+
+    if (post) post.tags.push(...(Array.isArray(newTag) ? newTag : [newTag]));
+    else throw new Error(`Post Not Found: Cannot find Post with id - ${postID}`);
+    return { ...post }; // Returns the Updated Post Class as an Object
   },
 
+  //Delete Post using ID
   deletePost: (postID) => {
-    postList = postList.filter((post) => post.id !== postID); // Delete Post using it's Id
-    return "Deleted Post";
+    postList = postList.filter((post) => post.id !== postID);
+    return { message: "Post Has Been Deleted" };
   },
 
   //Custom Function(s)
   getPostsUsingArtistName(name) {
     let result = { artistName: name, posts: [] };
+    let artist = this.findArtist(name);
+
     postList.forEach((post) => {
-      if (post.artistId == this.findArtist(name).id) result.posts.push({ ...post });
+      if (post.artistId == artist.id) result.posts.push({ ...post });
     });
     return result;
   },

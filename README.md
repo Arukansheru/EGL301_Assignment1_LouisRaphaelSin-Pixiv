@@ -19,100 +19,151 @@ There is an existing List of Artists and Posts for you to mess around with.
 
 - **`getArtists()`**
 
-  Return Type: Object[]
+  Retrieves the list of all stored artists.
 
-  This function returns an Array of all the Artists.
+      Parameters: None
+
+      Return Type: Object[]
 
 - **`findArtist(param)`**
 
-  Return Type: Object
+  Searches for a specific artist by their ID or Name.
 
-  Uses 1 parameter when searching for an artist. Which can either be the artist name or id
+      Parameters:
 
-      { param: String or Int }
+          param (String | Number): The Name or ID of the artist.
+
+      Return Type: Object
+
+      Throws: Error if the artist is not found.
 
 - **`addArtist(name)`**
 
-  Return Type: String
+  Adds a new artist to the database.
 
-  Uses 1 parameter when adding a new artist
+      Parameters:
 
-      { name: String }
+          name (String): The name of the new artist.
 
-  Expected Return Messages:
+      Return Type: Object
 
-      { message: `Artist Added - ${name}` }
+      Example Return:
+
+        { message: `Artist Added - [name]` }
 
 - **`deleteArtist(id)`**
 
-  Return Type: String
+  Deletes an artist and recursively deletes all posts associated with that artist.
 
-  Uses 1 parameter when deleting an artist. Which can either be the artist name or id
+      Parameters:
 
-      { param: String or Int }
+        param (String | Number): The Name or ID of the artist to delete.
 
-  Expected Error Message
+      Return Type: Object
 
-      { message: `ID: ${param} - Artist Not Found` }
+      Throws: Error if the artist is not found.
 
-  Expected Error Message
+      Example Return:
 
-      { message: `Artist ${param} deleted` };
+        { "message": "Artist [param] deleted" }
 
   Note: Deleting an Artist will delete ALL POSTS by the Artist!
   <br>
 
+  <hr>
+
 - **`getPosts()`**
 
-  Return Type: Object[]
+  Retrieves all posts.
 
-  This function returns an Array of all the Posts, it also includes the Artist's Details.
+      Parameters: None
+
+      Return Type: Object[]
+
+      Description: Returns an array of post objects.
+
+  Note: This function automatically joins the data, adding an artistName property to every post object for easier reading.
 
 - **`findPost(param)`**
 
-  Return Type: Object
+  Searches for a specific post by its ID.
 
-  Uses 1 parameter when searching for a post.
+      Parameters:
 
-      param: String
+          param (Number): The unique ID of the post.
+
+      Return Type: Object
+
+      Throws: Error if the post is not found.
 
 - **`addPost(title, filename, tags, artistName)`**
 
-  Return Type: String
+  Creates a new post and links it to an existing artist.
 
-  Uses 4 Parameters when adding a new post
+      Parameters:
 
-      title: String,
-      filename: String,
-      tags: String or String[],
-      artistName: String
+          title (String): The post title.
+
+          filename (String): The file name (e.g., "image.png").
+
+          tags (String | String[]): A single tag string or an array of strings.
+
+          artistName (String): The name of the artist (must exist in the database).
+
+      Return Type: Object
+
+      Throws: Error if the artistName is not found.
+
+      Example Return:
+
+        { "message": "Post Added for [artistName]" }
 
 - **`updatePostTags(postID, newTag)`**
 
-  Return Type: Object
+  Appends new tags to an existing post.
 
-  Uses 2 Parameters when updating a post's tags
+      Parameters:
 
-      postID: int,
-      newTag: String or String[]
+          postID (Number): The ID of the post to update.
 
-  For newTag, you may use either a single tag (one string) or multiple tags (an array of strings)
+          newTag (String | String[]): The new tag(s) to add.
+
+      Return Type: Object
+
+      Throws: Error if the post is not found.
+
+      Description: Returns the updated Post object containing the new tags.
 
 - **`deletePost(postID)`**
 
-  Return Type: String
+  Removes a specific post from the database.
 
-  Uses 1 parameter when deleting a post.
+      Parameters:
 
-      param: int
+        postID (Number): The ID of the post to delete.
+
+      Return Type: Object
+
+      Example Return:
+
+        { "message": "Post Has Been Deleted" }
 
 - **`getPostsUsingArtistName(name)`**
 
-  Return Type: Object
+  Finds all posts belonging to a specific artist.
 
-  Uses 1 parameter when finding posts from a specific artist
+      Parameters:
 
-      name: String
+        name (String): The name of the artist.
+
+      Return Type: Object
+
+      Return Structure:
+
+        {
+          "artistName": "[name]",
+          "posts": [ ...Array of Post Objects ]
+        }
 
 # References
 
